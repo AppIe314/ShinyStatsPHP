@@ -15,7 +15,6 @@ if ($timeZoneSet === false) {
 	echo "Failed to set timezone";
 }
 
-
 $today = date('Y-m-d');
 $shinyStats = $db->select('pokemon_shiny_stats', [
     'date',
@@ -23,6 +22,7 @@ $shinyStats = $db->select('pokemon_shiny_stats', [
     'count' => Medoo::raw('SUM(`count`)')
 ], [
     'date' => $today,
+    'area' => 'world',  // Global stats filter
     'count[>]' => 0,
     'GROUP' => 'pokemon_id'
 ]);
@@ -33,6 +33,7 @@ $totalStats = $db->select('pokemon_iv_stats', [
     'count' => Medoo::raw('SUM(`count`)')
 ], [
     'date' => $today,
+    'area' => 'world',  // Global stats filter
     'GROUP' => 'pokemon_id'
 ]);
 
